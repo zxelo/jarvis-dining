@@ -1,5 +1,4 @@
 import sys
-import time
 import smtplib
 from datetime import datetime, timedelta
 from email.mime.text import MIMEText
@@ -41,11 +40,12 @@ LOCATIONS = {
     ],
 }
 
-MAIN_HALLS = ["McEwen Food Hall", "Lakeside Dining Hall"]
+
+def get_eastern_time():
+    return datetime.utcnow() - timedelta(hours=4)
 
 
-def parse_time(t_str):
-    now = datetime.now()
+def parse_time(t_str, now):
     h, m = map(int, t_str.split(":"))
     if h >= 24:
         h -= 24
@@ -68,12 +68,13 @@ def send_sms(title, message):
 
 
 def run():
-    now = datetime.now()
-    print(f"[Jarvis] Checking dining hours at {now.strftime('%I:%M %p')}")
+    now = get_eastern_time()
+    print(f"[Jarvis] Checking at {now.strftime('%I:%M %p')} Eastern")
+
     for name, sessions in LOCATIONS.items():
         for open_t, close_t, label in sessions:
-            open_dt = parse_time(open_t)
-            close_dt = parse_time(close_t)
+            open_dt = parse_time(open_t, now)
+            close_dt = parse_time(close_t, now)
             diff_open = (open_dt - now).total_seconds() / 60
             diff_close = (close_dt - now).total_seconds() / 60
 
