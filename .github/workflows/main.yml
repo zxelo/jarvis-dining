@@ -9,12 +9,6 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Install dependencies
-        run: pip install requests pytz
-      - name: Run dining notifier
-        run: python dining.py test
+      - name: Send notification
+        run: |
+          curl -d "GitHub Actions is working!" -H "Title: Jarvis Test" https://ntfy.sh/jarvis-patrick
