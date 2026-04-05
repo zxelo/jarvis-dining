@@ -17,4 +17,4 @@ jobs:
       - name: Install dependencies
         run: pip install requests pytz
       - name: Run dining notifier
-        run: python dining.py
+        run: python dining.py test
