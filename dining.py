@@ -64,6 +64,7 @@ def send_sms(title, message):
         print(f"[Jarvis] Text sent: {title}")
     except Exception as e:
         print(f"[Jarvis] SMS error: {e}")
+        raise
 
 
 def run():
