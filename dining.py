@@ -1,4 +1,3 @@
-import sys
 import smtplib
 from datetime import datetime, timedelta
 from email.mime.text import MIMEText
@@ -92,4 +91,5 @@ def run():
 
 
 if __name__ == "__main__":
+    send_sms("Jarvis Test", "GitHub Actions is working!")
     run()
