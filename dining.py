@@ -28,8 +28,12 @@ LOCATIONS = {
 
 
 def get_eastern_time():
-    eastern = pytz.timezone("America/New_York")
-    return datetime.now(eastern).replace(tzinfo=None)
+    utc_now = datetime.utcnow()
+    # EDT is UTC-4, EST is UTC-5
+    # April through October = EDT (UTC-4)
+    month = utc_now.month
+    offset = 4 if 3 <= month <= 11 else 5
+    return utc_now - timedelta(hours=offset))
 
 
 def parse_time(t_str, now):
